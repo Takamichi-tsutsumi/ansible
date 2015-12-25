@@ -1,0 +1,13 @@
+- name: install mysql
+  yum: name={{ item }} state=present
+  with_items:
+   - mysql
+   - mysql-devel
+   - mysql-server
+
+- name: start mysql
+  shell: /etc/init.d/mysqld start
+
+- shell: chkconfig mysqld on
+
+- shell: /usr/bin/mysqladmin -u root password '{{root_password}}'

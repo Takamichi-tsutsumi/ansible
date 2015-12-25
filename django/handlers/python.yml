@@ -1,0 +1,3 @@
+- name: pip freeze
+  command: "{{ home }}/venvs/{{ venv_name }}/bin/pip freeze"
+  sudo: no

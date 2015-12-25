@@ -1,0 +1,69 @@
+  - name: update all yum packages
+    yum: name=* state=latest
+
+  - name: install yum packages
+    yum: name={{ item }} state=present
+    with_items:
+     - zlib
+     - zlib-devel
+     - tk-devel
+     - tcl-devel
+     - sqlite-devel
+     - ncurses-devel
+     - gdbm-devel
+     - readline-devel
+     - bzip2-devel
+     - db4-devel
+     - openssl-devel
+     - mysql
+     - mysql-devel
+     - mysql-server
+     - git
+
+  - file: path={{ home }}/downloads state=directory
+    sudo: no
+
+  - name: download python tar
+    get_url: url={{ python_source_url }} dest={{ home }}/downloads/Python.tgz
+    sudo: no
+
+  - name: tar python
+    command: tar zxvf {{ home }}/downloads/Python.tgz -C {{ home }}/downloads
+    sudo: no
+
+  - command: /home/vagrant/downloads/Python-{{ python_version }}/configure --prefix=/usr/local --with-threads
+    sudo: no
+  - command: make
+  - command: make altinstall
+
+  - name: install pip
+    get_url: url={{ pip_source_url }} dest=/home/vagrant/downloads/get_pip.py
+    sudo: no
+
+  - command: /usr/local/bin/python2.7 {{ home }}/downloads/get_pip.py
+
+  - command: /usr/local/bin/pip install virtualenv
+  - shell: rm -rf /home/vagrant/*
+  - file: path={{home}}/venvs state=directory
+    sudo: no
+
+  - command: virtualenv {{ home }}/venvs/{{ venv_name }}
+    sudo: no
+
+  - name: Install python libraries
+    pip: name={{ item.name }} virtualenv={{ home }}/venvs/{{ venv_name }} version={{ item.version }}
+    sudo: no
+    with_items:
+     - { name: 'django', version: '1.7' }
+     - { name: 'django-bootstrap-form', version: '3.2' }
+     - { name: 'ipython', version: '4.0.1' }
+     - { name: 'MySQL-python', version: '1.2.5' }
+    notify: pip freeze
+
+  - name: Install python libraries
+    pip: name={{ item.name }} virtualenv={{ home }}/venvs/{{ venv_name }} version={{ item.version }}
+    sudo: no
+    with_items:
+     - { name: 'django-socketio', version: '0.3.9' }
+    notify: pip freeze
+

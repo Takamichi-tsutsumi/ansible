@@ -1,0 +1,17 @@
+- hosts: webservers
+  user: vagrant
+  sudo: yes
+  vars:
+    user_name: vagrant
+    home: /home/{{user_name}}
+    python_source_url: https://www.python.org/ftp/python/2.7.9/Python-2.7.9.tgz
+    python_version: 2.7.9
+    pip_source_url: https://raw.github.com/pypa/pip/master/contrib/get-pip.py
+    venv_name: webdev
+    root_password: root
+  handlers:
+    - include: handlers/python.yml
+
+  tasks:
+    - include: tasks/python.yml
+    - include: tasks/mysql.yml
