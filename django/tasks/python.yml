@@ -19,6 +19,7 @@
      - mysql-devel
      - mysql-server
      - git
+     - libevent-devel
 
   - file: path={{ home }}/downloads state=directory
     sudo: no
@@ -58,6 +59,7 @@
      - { name: 'django-bootstrap-form', version: '3.2' }
      - { name: 'ipython', version: '4.0.1' }
      - { name: 'MySQL-python', version: '1.2.5' }
+     - { name: 'gevent', version: '0.13.6' }
     notify: pip freeze
 
   - name: Install python libraries
