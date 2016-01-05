@@ -7,6 +7,7 @@ Vagrant.configure(2) do |config|
   config.vm.box = "centos6.5.3"
 
   config.vm.network "private_network", ip: "192.168.33.10"
+  config.vm.newtork "public_network"
 
   # place your public key file into synced folder!!
   config.vm.synced_folder "./data", "/vagrant"
@@ -17,8 +18,8 @@ Vagrant.configure(2) do |config|
 
   config.vm.provision "ansible" do |ansible|
     # your ansible file
-    ansible.playbook = "/Users/" + USER + "/ansible/main.yml"
-    ansible.inventory_path = "/Users/" + USER + "/ansible/hosts"
+    ansible.playbook = "/Users/" + USER + "/ansible/django/main.yml"
+    ansible.inventory_path = "/Users/" + USER + "/ansible/django/hosts"
     ansible.limit = 'all'
   end
 end
