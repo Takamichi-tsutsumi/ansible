@@ -1,13 +1,24 @@
+- include_vars: vars/mysql.yml
 - name: install mysql
-  yum: name={{ item }} state=present
-  with_items:
-   - mysql
-   - mysql-devel
-   - mysql-server
+  yum: name={{ mysql_url }}/{{ item.rpm }} state=present
+  with_items: mysql_items
 
 - name: start mysql
-  shell: /etc/init.d/mysqld start
+  service: name=mysql state=started enabled=yes
 
-- shell: chkconfig mysqld on
+- shell: chkconfig mysql on
 
-- shell: /usr/bin/mysqladmin -u root password '{{root_password}}'
+- name: get mysql password
+  shell: cat /root/.mysql_secret | awk '{print $18}'
+  register: mysql_root_password
+
+- name: set db root password
+  mysql_user: name=root host={{ item }} password={{ root_db_pass }}
+  with_items:
+    - 127.0.0.1
+    - ::1
+    - localhost
+
+- name: copy .my.cnf
+  template: src=.my.cnf.j2 dest=/root/.my.cnf owner=root mode=0600
+

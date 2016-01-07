@@ -1,0 +1,19 @@
+- name: update all yum packages
+  yum: name=* state=latest
+
+- name: install yum packages
+  yum: name={{ item }} state=present
+  with_items:
+   - zlib
+   - zlib-devel
+   - tk-devel
+   - tcl-devel
+   - sqlite-devel
+   - ncurses-devel
+   - gdbm-devel
+   - readline-devel
+   - bzip2-devel
+   - db4-devel
+   - openssl-devel
+   - git
+   - libevent-devel
