@@ -8,6 +8,7 @@
     - mysql-community-libs-compat
     - mysql-community-client
     - mysql-community-server
+    - mysql-devel
     - MySQL-python
 
 - name: start mysql
