@@ -16,4 +16,5 @@
    - db4-devel
    - openssl-devel
    - git
+   - python-devel
    - libevent-devel
