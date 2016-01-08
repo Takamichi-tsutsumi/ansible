@@ -28,21 +28,4 @@
   - command: virtualenv {{ home }}/venvs/{{ venv_name }}
     sudo: no
 
-  - name: Install python libraries
-    pip: name={{ item.name }} virtualenv={{ home }}/venvs/{{ venv_name }} version={{ item.version }}
-    sudo: no
-    with_items:
-     - { name: 'django', version: '1.8.8' }
-     - { name: 'django-bootstrap-form', version: '3.2' }
-     - { name: 'ipython', version: '4.0.1' }
-     - { name: 'mysqlclient', version: '1.3.7' }
-     - { name: 'gevent', version: '0.13.6' }
-    notify: pip freeze
-
-  - name: Install python libraries
-    pip: name={{ item.name }} virtualenv={{ home }}/venvs/{{ venv_name }} version={{ item.version }}
-    sudo: no
-    with_items:
-     - { name: 'django-socketio', version: '0.3.9' }
-    notify: pip freeze
 

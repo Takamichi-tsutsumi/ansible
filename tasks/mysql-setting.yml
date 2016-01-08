@@ -1,0 +1,14 @@
+- name: start mysql
+  service: name=mysql state=started enabled=yes
+
+- shell: chkconfig mysql on
+
+- name: set db root password
+  mysql_user: name=root host={{ item }} password={{ mysql_root_password }} state=present login_user=root login_password={{ mysql_old_password.stdout }} check_implicit_admin=yes priv="*.*:ALL,GRANT"
+  with_items:
+    - "{{ ansible_hostname }}"
+    - 127.0.0.1
+    - ::1
+    - localhost
+
+
