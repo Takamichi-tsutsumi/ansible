@@ -1,0 +1,20 @@
+- name: Install Supervisor
+  command: /usr/local/bin/easy_install supervisor
+
+- name: Copy config file of Supervisord
+  copy: src=templates/supervisord.conf dest=/etc/sysconfig/supervisord
+
+- name: Copy starting script of Supervisord
+  copy: src=templates/supervisord.ini dest=/etc/init.d/supervisord
+
+- name: add service supervisord
+  command: chkconfig --add supervisord
+
+- name: Create ini directory
+  file: path=/etc/supervisord.d mode=0644 state=directory owner=root
+
+- name: Create log directory
+  file: path=/var/log/supervisord/jobs mode=0664 state=directory owner=root
+
+- name: copy program ini files
+  copy: src=templates/django_supervisord.ini dest=/etc/supervisord.d/django_supervisord.ini

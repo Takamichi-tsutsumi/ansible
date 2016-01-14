@@ -1,2 +1,5 @@
-- name: install nginx
+- name: add yum repo for latest version of Nginx
+  command: rpm -ivh http://nginx.org/packages/centos/6/noarch/RPMS/nginx-release-centos-6-0.el6.ngx.noarch.rpm
+
+- name: install Nginx
   yum: name=nginx state=present
