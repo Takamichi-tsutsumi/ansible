@@ -1,22 +1,21 @@
 - hosts: webservers
-  user: vagrant
+  user: ec2-user # FIX
   sudo: yes
   vars:
-    user_name: vagrant
+    user_name: ec2-user # FIX
     home: /home/{{user_name}}
     python_version: 2.7.11
     python_source_url: https://www.python.org/ftp/python/2.7.11/Python-2.7.11.tgz
     pip_source_url: https://raw.github.com/pypa/pip/master/contrib/get-pip.py
     venv_name: webdev
-    mysql_root_password: root
+    venv_bin_path: /home/{{ user_name }}/{{ venv_name }}/bin
+    django_project_path: /var/www/django-proj
+    django_project_name: django-proj # FIX
   handlers:
     - include: handlers/python.yml
-    - include: handlers/service.yml
 
   tasks:
     - include: tasks/basic.yml
-    - include: tasks/mysql.yml
-    - include: tasks/python.yml
-    - include: tasks/django.yml
     - include: tasks/nginx.yml
-    - include: tasks/supervisord.yml
+    - include: tasks/supervisor.yml
+

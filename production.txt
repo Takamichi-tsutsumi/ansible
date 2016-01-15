@@ -1,0 +1,39 @@
+Production環境ですること。
+
+1. packageのインストール
+yum -y update
+yum -y install gcc zlib zlib-devel libxml2-devel readline-devel openssl-devel python-devel libevent-devel git mysql-devel mysql-server mysql-client
+
+mysqlのrootパスワードを設定。
+
+2. Pythonのライブラリ関連インストール
+virtualenvをつくる。
+pip install -r requirement.txt
+venv_path => virtualenv/bin
+
+3. git でクローンする。
+django_project_path
+settings に以下追加。
+SOCKETIO_HOST="0.0.0.0"
+SOCKETIO_PORT="9000"
+staticディレクトリの権限を777にするchmod 777 /static/
+
+
+
+4.uwsgi.iniをdjango_project/django_projectに配置。(settings.pyと同じ位置)
+
+5. nginxのインストール
+rpm -ivh http://nginx.org/packages/centos/6/noarch/RPMS/nginx-release-centos-6-0.el6.ngx.noarch.rpm
+sudo yum -y install nginx
+/etc/nginx.conf
+を置き換える。
+/etc/nginx/conf.d/web_server.confを配置
+
+6. supervisorをeasy_installでインストール。
+supervisor.iniを/etc/init.d/supervisord に配置。
+supervisor.confを/etc/supervisord.confに配置。
+chkconfig --add supervisord
+/etc/supervisord.d/以下にdjango.iniを配置。
+
+
+

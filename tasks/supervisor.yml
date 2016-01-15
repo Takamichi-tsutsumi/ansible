@@ -1,11 +1,15 @@
+- name: get easy_install_path
+  shell: which easy_install
+  register: easy_install_path
+
 - name: Install Supervisor
-  command: /usr/local/bin/easy_install supervisor
+  command: /usr/bin/easy_install supervisor
 
 - name: Copy config file of Supervisord
-  copy: src=templates/supervisord.conf dest=/etc/sysconfig/supervisord
+  template: src=templates/supervisord.conf dest=/etc/supervisord.conf
 
 - name: Copy starting script of Supervisord
-  copy: src=templates/supervisord.ini dest=/etc/init.d/supervisord
+  template: src=templates/supervisord.ini dest=/etc/init.d/supervisord
 
 - name: add service supervisord
   command: chkconfig --add supervisord
@@ -17,4 +21,4 @@
   file: path=/var/log/supervisord/jobs mode=0664 state=directory owner=root
 
 - name: copy program ini files
-  copy: src=templates/django_supervisord.ini dest=/etc/supervisord.d/django_supervisord.ini
+  template: src=templates/django_supervisord.ini dest=/etc/supervisord.d/django_server.ini
