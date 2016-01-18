@@ -9,8 +9,8 @@
     pip_source_url: https://raw.github.com/pypa/pip/master/contrib/get-pip.py
     venv_name: webdev
     venv_bin_path: /home/{{ user_name }}/{{ venv_name }}/bin
-    django_project_path: /var/www/django-proj
-    django_project_name: django-proj # FIX
+    django_project_path: /home/ec2-user/MasterBoard
+    django_project_name: MasterBoard # FIX
   handlers:
     - include: handlers/python.yml
 
