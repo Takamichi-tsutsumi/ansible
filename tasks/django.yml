@@ -1,5 +1,5 @@
   - name: copy requirements.txt
-  copy: src=templates/django_requirements.txt dest=/home/vagrant/requirements.txt
+    copy: src=templates/django_requirements.txt dest=/home/vagrant/requirements.txt
 
   - name: Install python libraries
     pip: virtualenv={{ home }}/venvs/{{ venv_name }} requirements=/home/vagrant/requirements.txt
