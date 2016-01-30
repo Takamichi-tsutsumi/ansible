@@ -3,7 +3,7 @@
 
 Vagrant.configure(2) do |config|
   # set vagrant box
-  config.vm.box = "centos6.5.3"
+  config.vm.box = "puphpet/centos65-64x"
 
   config.vm.network "private_network", ip: "192.168.33.10"
 

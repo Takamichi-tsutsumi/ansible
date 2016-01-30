@@ -2,11 +2,25 @@
 Django applicationの開発環境をprovisioningする。
 
 ## 実行方法
+
+VagrantのBoxをダウンロードする
+```
+$ vagrant box add puphpet/centos65-x64
+```
+
 LocalにAnsibleをインストールする
-
 ```
-pip install ansible
+$ pip install ansible
 ```
 
-実行ファイル
-provision.shのUSER_NAME, PRIVATE_KEY_PATH, FILEを変更して実行。
+このリポジトリをクローンする
+```
+$ git clone https://github.com/Takamichi-tsutsumi/ansible
+```
+
+dataディレクトリを作成してvagrantを起動する
+```
+$ mkdir data
+$ mv ansible/Vagrantfile ../
+$ vagrant up
+```
